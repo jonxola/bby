@@ -24,6 +24,7 @@ def get_product(url):
     '''
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, 'html.parser')
+    page.validate(soup)
     product = {
         'url': url,
         'sku': page.get_sku(soup),

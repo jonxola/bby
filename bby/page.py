@@ -1,3 +1,11 @@
+from .exceptions import PageError
+
+def validate(soup):
+    '''Verifies that the passed BeautifulSoup object is a Best Buy product page.'''
+    tag = soup.find('div', class_='shop-product-title')
+    if tag is None:
+        raise PageError('This doesn\'t look like a bestbuy.com product page.')
+
 def get_sku(soup):
     tag = soup.find('div', class_='sku').find('span', class_='product-data-value')
     return tag.get_text().strip()
