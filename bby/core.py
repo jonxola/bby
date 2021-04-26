@@ -13,8 +13,7 @@ headers = {
 def validate_url(url):
     '''Ensure that a URL points to bestbuy.com.'''
     hostname = urlparse(url).hostname
-    bb = 'bestbuy.com' in hostname
-    if not bb:
+    if 'bestbuy.com' not in hostname:
         raise InvalidUrlError('This is not a bestbuy.com URL.')
 
 def get_product(url):
