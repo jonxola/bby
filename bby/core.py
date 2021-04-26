@@ -1,12 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 from . import page
+from .exceptions import InvalidUrlError
 
 headers = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
     'referer': 'https://www.bestbuy.com/',
 }
+
+def validate_url(url):
+    '''Ensure that a URL points to bestbuy.com.'''
+    hostname = urlparse(url).hostname
+    bb = 'bestbuy.com' in hostname
+    if not bb:
+        raise InvalidUrlError('This is not a bestbuy.com URL.')
 
 def get_product(url):
     '''Scrape product info from bestbuy.com
@@ -22,6 +31,7 @@ def get_product(url):
     price (string): the product's price
     available (boolean): whether the product is in stock
     '''
+    validate_url(url)
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, 'html.parser')
     page.validate(soup)
