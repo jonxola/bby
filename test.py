@@ -17,5 +17,7 @@ for url in urls:
         product = bby.get_product(url)
     except bby.exceptions.PageError as e:
         print(e)
+    except bby.exceptions.InvalidUrlError as e:
+        print(e)
     else:
         print(product)
