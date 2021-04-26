@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bby"
-version = "1.0.0"
+version = "1.0.1"
 description = "Scrape product info from bestbuy.com."
 authors = ["jonxola"]
 
